@@ -1,10 +1,12 @@
 import { BaseAllocator } from './BaseAllocator';
 import { BlkpoolAllocator } from './BlkpoolAllocator';
+import { LaryAllocator } from './LaryAllocator';
 
 
 export enum AllocatorType {
-    Blkpool, Delptr, Inlary, Lary, Lpool,
-    Malloc, Sbrk, Tary, Tpool, Val
+    Blkpool = 'Blkpool',
+    Lary = 'Lary'
+    //Delptr, Inlary, Lary, Lpool, Malloc, Sbrk, Tary, Tpool, Val
 }
 
 export class AllocatorFactory {
@@ -12,6 +14,8 @@ export class AllocatorFactory {
         switch (_type) {
             case AllocatorType.Blkpool:
                 return new BlkpoolAllocator();
+            case AllocatorType.Lary:
+                return new LaryAllocator();
             default:
                 throw new Error(`Allocator type ${_type} not implemented`);
         }
