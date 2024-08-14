@@ -5,20 +5,22 @@ import MemoryAllocatorView from './MemoryAllocatorView';
 
 const MemoryAllocatorSimulation: React.FC = () => {
   const [allocator, setAllocator] = useState<BaseAllocator>(
-      AllocatorFactory.createAllocator(AllocatorType.Blkpool)
+    AllocatorFactory.createAllocator(AllocatorType.Blkpool)
   );
+  const [allocatorType, setAllocatorType] = useState<AllocatorType>(AllocatorType.Blkpool);
   const [updateTrigger, setUpdateTrigger] = useState(0);
   const [autoMode, setAutoMode] = useState(false);
 
   const forceUpdate = useCallback(() => {
-      setUpdateTrigger(prev => prev + 1);
+    setUpdateTrigger(prev => prev + 1);
   }, []);
 
   const handleAllocatorChange = useCallback((newType: AllocatorType) => {
-      setAllocator(AllocatorFactory.createAllocator(newType));
-      setAutoMode(false);
+    setAllocatorType(newType);
+    setAllocator(AllocatorFactory.createAllocator(newType));
+    setAutoMode(false);
   }, []);
-    
+
   const addElement = useCallback(() => {
     allocator.addElement();
     forceUpdate();
@@ -59,7 +61,7 @@ const MemoryAllocatorSimulation: React.FC = () => {
       onAddElement={addElement}
       onRemoveElement={removeElement}
       onReset={reset}
-      allocatorType={allocator.getType()}
+      allocatorType={allocatorType}
       onAllocatorChange={handleAllocatorChange}
       getExecutedCode={() => allocator.getExecutedCode()}
       getHighlightedLine={() => allocator.getHighlightedLine()}
