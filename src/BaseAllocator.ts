@@ -1,4 +1,4 @@
-import { Block, MemoryStats } from './types';
+import { Block } from './types';
 import { AllocatorType } from './AllocatorFactory';
 
 export abstract class BaseAllocator {
@@ -16,14 +16,6 @@ export abstract class BaseAllocator {
   abstract removeElement(): void;
   abstract reset(): void;
   abstract getType(): AllocatorType;
-
-  getStats(): MemoryStats {
-    return {
-      totalMemory: this.totalMemory,
-      usedMemory: this.usedMemory,
-      freeMemory: this.totalMemory - this.usedMemory
-    };
-  }
 
   getBlocks(): Block[] {
     return this.blocks;

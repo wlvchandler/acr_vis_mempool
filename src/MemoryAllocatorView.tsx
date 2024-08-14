@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowRight, ArrowDown, Plus, Minus, RefreshCw } from 'lucide-react';
-import { Block, MemoryStats } from './types';
+import { Block } from './types';
 import { AllocatorType } from './AllocatorFactory';
 import { BLOCK_SIZE } from './utils/constants';
 
 interface MemoryAllocatorViewProps {
     blocks: Block[];
-    stats: MemoryStats;
     onAddElement: () => void;
     onRemoveElement: () => void;
     onReset: () => void;
@@ -24,7 +23,6 @@ interface MemoryAllocatorViewProps {
 
 const MemoryAllocatorView: React.FC<MemoryAllocatorViewProps> = ({
     blocks,
-    stats,
     onAddElement,
     onRemoveElement,
     onReset,
@@ -126,51 +124,6 @@ const MemoryAllocatorView: React.FC<MemoryAllocatorViewProps> = ({
                 <option value="Blkpool">Blkpool</option>
                 <option value="Lary">Lary</option>
             </select>
-            <div className="flex justify-center space-x-4 mb-4">
-                <button onClick={onAddElement} className="bg-green-500 text-white px-4 py-2 rounded flex items-center">
-                    <Plus size={20} className="mr-2" /> Add Element
-                </button>
-                <button onClick={onRemoveElement} className="bg-red-500 text-white px-4 py-2 rounded flex items-center">
-                    <Minus size={20} className="mr-2" /> Remove Element
-                </button>
-                <button onClick={onReset} className="bg-gray-500 text-white px-4 py-2 rounded flex items-center">
-                    <RefreshCw size={20} className="mr-2" /> Reset
-                </button>
-                <button onClick={onToggleAutoMode} className={`${autoMode ? 'bg-yellow-500' : 'bg-blue-500'} text-white px-4 py-2 rounded flex items-center`}>
-                    <RefreshCw size={20} className="mr-2" /> {autoMode ? 'Stop Auto' : 'Start Auto'}
-                </button>
-            </div>
-            <div className="bg-gray-100 p-4 rounded-lg mb-4">
-                <h3 className="text-lg font-semibold mb-2">Memory Statistics</h3>
-                <div className="grid grid-cols-3 gap-4">
-                    <div>
-                        <p className="text-sm font-medium text-gray-500">Total Memory</p>
-                        <p className="text-lg font-semibold">{stats.totalMemory} bytes</p>
-                    </div>
-                    <div>
-                        <p className="text-sm font-medium text-gray-500">Used Memory</p>
-                        <p className="text-lg font-semibold">{stats.usedMemory} bytes</p>
-                    </div>
-                    <div>
-                        <p className="text-sm font-medium text-gray-500">Free Memory</p>
-                        <p className="text-lg font-semibold">{stats.freeMemory} bytes</p>
-                    </div>
-                </div>
-                <div className="mt-2 bg-gray-200 rounded-full h-4 overflow-hidden">
-                    <div 
-                        className="bg-blue-500 h-4" 
-                        style={{ width: `${(stats.usedMemory / stats.totalMemory) * 100}%` }}
-                    ></div>
-                </div>
-            </div>
-            <div className="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4" role="alert">
-                <p className="font-bold">Explanation</p>
-                <p>{explanation}</p>
-            </div>
-            {renderCodeBlock()}
-            <div className="space-y-4 max-h-96 overflow-y-auto">
-                {blocks.map(renderBlock)}
-            </div>
             <div className="mt-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4" role="alert">
                 <p className="font-bold">How {allocatorType} Works:</p>
                 <ul className="list-disc list-inside">
@@ -195,6 +148,29 @@ const MemoryAllocatorView: React.FC<MemoryAllocatorViewProps> = ({
                     )}
                 </ul>
             </div>
+            <div className="flex justify-center space-x-4 mb-4">
+                <button onClick={onAddElement} className="bg-green-500 text-white px-4 py-2 rounded flex items-center">
+                    <Plus size={20} className="mr-2" /> Add Element
+                </button>
+                <button onClick={onRemoveElement} className="bg-red-500 text-white px-4 py-2 rounded flex items-center">
+                    <Minus size={20} className="mr-2" /> Remove Element
+                </button>
+                <button onClick={onReset} className="bg-gray-500 text-white px-4 py-2 rounded flex items-center">
+                    <RefreshCw size={20} className="mr-2" /> Reset
+                </button>
+                <button onClick={onToggleAutoMode} className={`${autoMode ? 'bg-yellow-500' : 'bg-blue-500'} text-white px-4 py-2 rounded flex items-center`}>
+                    <RefreshCw size={20} className="mr-2" /> {autoMode ? 'Stop Auto' : 'Start Auto'}
+                </button>
+            </div>
+            <div className="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4" role="alert">
+                <p className="font-bold">Explanation</p>
+                <p>{explanation}</p>
+            </div>
+            {renderCodeBlock()}
+            <div className="space-y-4 max-h-96 overflow-y-auto">
+                {blocks.map(renderBlock)}
+            </div>
+
         </div>
     );
 };

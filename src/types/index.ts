@@ -4,17 +4,6 @@ export interface Block {
     isFree: boolean;
 }
 
-export interface MemoryStats {
-    totalMemory: number;
-    usedMemory: number;
-    freeMemory: number;
-}
-
-// export interface AllocatorState {
-//     blocks: Block[];
-// }
-
-
 export interface ElementProps {
     value: string;
     address: number;
@@ -39,8 +28,3 @@ export interface ExplanationProps {
     text: string;
 }
 
-export interface MemoryStatsProps {
-    totalMemory: number;
-    usedMemory: number;
-    freeMemory: number;
-}

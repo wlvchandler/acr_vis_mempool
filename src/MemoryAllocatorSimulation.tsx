@@ -57,7 +57,6 @@ const MemoryAllocatorSimulation: React.FC = () => {
   return (
     <MemoryAllocatorView
       blocks={allocator.getBlocks()}
-      stats={allocator.getStats()}
       onAddElement={addElement}
       onRemoveElement={removeElement}
       onReset={reset}
